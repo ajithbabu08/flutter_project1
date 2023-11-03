@@ -43,6 +43,7 @@ class _HomeTodoAppState extends State<HomeTodoApp> {
 
 
 
+
   @override
   void initState() {
     dateController.text="";
@@ -65,8 +66,9 @@ class _HomeTodoAppState extends State<HomeTodoApp> {
         title: Text("Trace Span"),),
       body: todolist.isEmpty?
       Center(
-        child: Lottie.asset("assets/anim/todohomeanim.json")
-        ,)
+        child: Text("welcome")
+        // Lottie.asset("assets/anim/todohomeanim.json")
+        )
 
           :  ListView.builder(
         itemCount: todolist.length,
@@ -80,6 +82,7 @@ class _HomeTodoAppState extends State<HomeTodoApp> {
 
               trailing: Wrap(
                 children: [
+
                   IconButton(onPressed: (){
                     showmytask(context,task['id']);
                   }, icon: Icon(Icons.edit),color: Colors.green,),
@@ -140,7 +143,7 @@ class _HomeTodoAppState extends State<HomeTodoApp> {
     if (selectedDate != null) {
       setState(() {
         taskDueDate = selectedDate;
-        dateController.text=selectedDate.toLocal().toString().split(" ")[0];
+        dateController.text=selectedDate.toLocal().toString().split('d MMM, y')[0];
       });
     }
   }, icon: Icon(Icons.calendar_month));
@@ -215,7 +218,7 @@ class _HomeTodoAppState extends State<HomeTodoApp> {
                 if (selectedDate != null) {
                   setState(() {
                     taskDueDate = selectedDate;
-                    dateController.text = selectedDate.toLocal().toString().split(" ")[0]; // Format date as needed
+                    dateController.text = selectedDate.toLocal().toString().split('d MMM, y')[0]; // Format date as needed
                   });
                 }
               },
@@ -305,11 +308,12 @@ class _HomeTodoAppState extends State<HomeTodoApp> {
       return {
         "id": mykey,
         "tasktitle": value["taskheading"],
-        "taskcontent": value["taskbody"]
+        "taskcontent": value["taskbody"],
       };
     }).toList();
     setState(() {
       todolist=getTask.reversed.toList();
+
     });
   }
 
@@ -317,7 +321,7 @@ class _HomeTodoAppState extends State<HomeTodoApp> {
     await taskbox.delete(taskkey);
     loadScreen();
 
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(duration: Duration(seconds: 60),
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(duration: Duration(seconds: 2),
         backgroundColor: Colors.red,
         content: Text("Task Deleted Successfully")));
   }

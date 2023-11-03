@@ -25,7 +25,8 @@ class _AppSplashState extends State<AppSplash> {
   @override
   void initState() {
     Timer(Duration(seconds: 2),(){
-      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>HomeTodoApp()));
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context)=>HomeTodoApp()));
     });
     super.initState();
   }
